@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import pandas as pd
 import os
 import io
 import utils
@@ -11,7 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 app = Flask(__name__)
-CORS(app)
+CORS(app) 
 
 @app.route('/')
 def home():
@@ -56,6 +57,7 @@ def draft_email():
     if not api_key:
         return jsonify({"error": "API Key missing"}), 400
 
+    # Read file and seek back to start for safety
     file_bytes = io.BytesIO(resume_file.read())
     resume_text = utils.extract_text_from_pdf(file_bytes)
     
