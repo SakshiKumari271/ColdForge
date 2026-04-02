@@ -120,3 +120,17 @@ All API endpoints return standard HTTP status codes:
 - `400 Bad Request`: Missing required fields or invalid input.
 - `401 Unauthorized`: API Key missing or invalid.
 - `500 Internal Server Error`: Server or LLM processing failure.
+
+---
+
+## Endpoint Verification Status
+
+Last verified on: 2026-04-02
+
+| Route Path | Method | Feature | Status |
+| :--- | :--- | :--- | :--- |
+| `/` | `GET` | Home / Status Check | ✅ SUCCESS (200 OK) |
+| `/api/verify-single` | `POST` | SMTP Verification | ✅ SUCCESS (200 OK) |
+| `/api/permutator` | `POST` | Bulk Permutator (`finds` list) | ✅ SUCCESS (200 OK) |
+| `/api/permutator` | `POST` | Legacy Permutator (Backward compatibility) | ✅ SUCCESS (200 OK) |
+| `/api/draft-email` | `POST` | AI Email Drafting (PDF Upload) | ✅ SUCCESS (200 OK) |
