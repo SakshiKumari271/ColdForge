@@ -1,44 +1,71 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Mail, Search, Zap, Code, ShieldCheck, ArrowRight, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { Mail, Search, Zap, Code, ShieldCheck, ArrowRight, CheckCircle2, Globe, Cpu, MousePointer2 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { GridBackground } from "@/components/GridBackground";
+import { FloatingIcons } from "@/components/FloatingIcons";
 
 function cn(...inputs: any[]) {
   return twMerge(clsx(inputs));
 }
 
-const features = [
+const words = ["Success", "Growth", "Results", "Impact"];
+
+const bentoFeatures = [
   {
     title: "Email Verifier",
-    description: "Instantly check if an email address is valid and active with high-accuracy SMTP verification.",
+    description: "Deep SMTP handshake verification with 99.9% accuracy. No more bounces.",
     icon: ShieldCheck,
+    className: "lg:col-span-2 lg:row-span-1",
     color: "text-blue-500",
-    bg: "bg-blue-500/10",
+    bg: "bg-blue-500/5",
+  },
+  {
+    title: "AI Drafter",
+    description: "Cold emails that actually get replies.",
+    icon: Zap,
+    className: "lg:col-span-1 lg:row-span-1",
+    color: "text-purple-500",
+    bg: "bg-purple-500/5",
   },
   {
     title: "Permutator",
-    description: "Generate potential email combinations for company employees based on their names and domain.",
+    description: "Find the needle in the haystack with smart domain permutation logic.",
     icon: Search,
+    className: "lg:col-span-1 lg:row-span-2",
     color: "text-indigo-500",
-    bg: "bg-indigo-500/10",
+    bg: "bg-indigo-500/5",
   },
   {
-    title: "AI Email Drafter",
-    description: "Craft personalized outreach emails using your resume and company context with GPT-4 or Llama.",
-    icon: Zap,
-    color: "text-purple-500",
-    bg: "bg-purple-500/10",
+    title: "Global Reach",
+    description: "Access contacts from any domain, anywhere in the world.",
+    icon: Globe,
+    className: "lg:col-span-2 lg:row-span-1",
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/5",
   },
 ];
 
 export default function LandingPage() {
   const [email, setEmail] = useState("");
+  const [index, setIndex] = useState(0);
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationResult, setVerificationResult] = useState<any>(null);
+  
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef });
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,64 +83,73 @@ export default function LandingPage() {
       setVerificationResult(data);
     } catch (err) {
       console.error(err);
-      setVerificationResult({ status: "Error", message: "Connect to backend" });
+      setVerificationResult({ status: "Error", message: "Backend offline" });
     } finally {
       setIsVerifying(false);
     }
   };
 
   return (
-    <div className="flex flex-col gap-24 pb-24">
+    <div ref={containerRef} className="relative flex flex-col gap-32 pb-32">
+      <GridBackground />
+      <FloatingIcons />
+
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-24 pb-12">
-        <div className="absolute top-0 left-1/2 -z-10 h-[600px] w-[1000px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
-        
+      <section className="relative pt-32 pb-16">
         <div className="container mx-auto px-4 text-center sm:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary mb-8"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-8"
           >
-            <CheckCircle2 size={16} />
-            <span>100% Free | No API Key Required for Verification</span>
+            <SparklesIcon />
+            <span>The Premium Outreach Suite</span>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl font-extrabold tracking-tight text-foreground sm:text-7xl mb-8"
-          >
-            Premium Outreach <br />
-            <span className="premium-text-gradient">For Human Success</span>
-          </motion.h1>
+          <h1 className="text-6xl font-black tracking-tight text-foreground sm:text-8xl mb-8 leading-[1.1]">
+            Outreach for <br />
+            <span className="relative inline-block min-w-[280px] text-left sm:min-w-[420px]">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={words[index]}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "circOut" }}
+                  className="premium-text-gradient absolute inset-0"
+                >
+                  {words[index]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto max-w-2xl text-lg text-muted-foreground mb-12 leading-relaxed"
+            className="mx-auto max-w-2xl text-xl text-muted-foreground mb-12 leading-relaxed font-medium"
           >
             A calm, professional suite of tools to help you find, verify, and reach out to anyone. 
-            No complex signups, no hidden fees. Just pure outreach power.
+            No complex signups, no hidden fees.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
             <Link href="/permutator">
-              <button className="premium-gradient inline-flex items-center gap-2 rounded-xl px-8 py-4 font-semibold text-white shadow-lg transition-transform hover:scale-105">
-                Start Permuting
-                <ArrowRight size={20} />
+              <button className="premium-gradient group relative inline-flex items-center gap-2 rounded-2xl px-10 py-5 font-bold text-white shadow-2xl transition-all hover:scale-105 active:scale-95">
+                Get Started
+                <ArrowRight size={22} className="transition-transform group-hover:translate-x-1" />
               </button>
             </Link>
             <Link href="/docs">
-              <button className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-8 py-4 font-semibold text-foreground transition-all hover:bg-muted">
-                Learn How it Works
+              <button className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card/50 backdrop-blur-md px-10 py-5 font-bold text-foreground transition-all hover:bg-muted active:scale-95">
+                Documentation
               </button>
             </Link>
           </motion.div>
@@ -126,92 +162,138 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mx-auto max-w-3xl rounded-3xl border border-border bg-card p-1 shadow-2xl ring-1 ring-border/50"
+          className="mx-auto max-w-4xl"
         >
-          <div className="rounded-[calc(1.5rem-1px)] bg-background p-8 md:p-12">
-            <h2 className="text-2xl font-bold mb-6 text-center">Fast Email Verification</h2>
-            <form onSubmit={handleVerify} className="flex flex-col gap-4 sm:flex-row">
-              <div className="relative flex-1">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
-                <input
-                  type="email"
-                  placeholder="name@company.com"
-                  className="w-full rounded-xl border border-border bg-muted/30 py-4 pl-12 pr-4 text-base outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+          <div className="relative rounded-[2.5rem] border border-border bg-card/30 p-2 shadow-3xl backdrop-blur-xl ring-1 ring-white/10">
+            <div className="rounded-[2.2rem] bg-background/50 p-8 md:p-14">
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold mb-3">One-Click Verification</h2>
+                <p className="text-muted-foreground">High-precision SMTP validation in seconds.</p>
               </div>
-              <button
-                type="submit"
-                disabled={isVerifying}
-                className="rounded-xl bg-foreground px-8 py-4 font-bold text-background transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {isVerifying ? "Verifying..." : "Check Validity"}
-              </button>
-            </form>
 
-            {verificationResult && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                className="mt-8 rounded-2xl border border-border bg-muted/20 p-6"
-              >
-                <div className="flex items-start gap-4">
-                  <div className={cn(
-                    "mt-1 rounded-full p-2 text-white",
-                    verificationResult.status === "Valid" ? "bg-green-500" : 
-                    verificationResult.status === "Invalid" ? "bg-red-500" : "bg-yellow-500"
-                  )}>
-                    <CheckCircle2 size={24} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">{verificationResult.status}</h3>
-                    <p className="text-muted-foreground">
-                      {verificationResult.details || `Result for ${email}: ${verificationResult.status}.`}
-                    </p>
-                  </div>
+              <form onSubmit={handleVerify} className="flex flex-col gap-4 sm:flex-row">
+                <div className="relative flex-1 group">
+                  <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary" size={22} />
+                  <input
+                    type="email"
+                    placeholder="name@company.com"
+                    className="w-full rounded-2xl border border-border bg-muted/20 py-5 pl-14 pr-6 text-lg outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary/50 transition-all font-medium"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
                 </div>
-              </motion.div>
-            )}
+                <button
+                  type="submit"
+                  disabled={isVerifying}
+                  className="rounded-2xl bg-foreground px-10 py-5 font-bold text-background transition-all hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isVerifying ? "Processing..." : "Verify Identity"}
+                </button>
+              </form>
+
+              <AnimatePresence>
+                {verificationResult && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                    className="mt-10 rounded-2xl border border-border bg-muted/10 p-8"
+                  >
+                    <div className="flex items-center gap-6 text-left">
+                      <div className={cn(
+                        "flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl shadow-lg",
+                        verificationResult.status === "Valid" ? "bg-emerald-500 text-white" : 
+                        verificationResult.status === "Invalid" ? "bg-rose-500 text-white" : "bg-amber-500 text-white"
+                      )}>
+                        <ShieldCheck size={32} />
+                      </div>
+                      <div>
+                        <h3 className="font-extrabold text-2xl mb-1">{verificationResult.status}</h3>
+                        <p className="text-muted-foreground font-medium">
+                          {verificationResult.details || `Identity check complete for ${email}.`}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </motion.div>
       </section>
 
-      {/* Features Grid */}
+      {/* Bento Grid Features */}
       <section className="container mx-auto px-4 sm:px-8">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, i) => (
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Powerful by Design</h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">Every tool is optimized for conversion and built with the recruiter's workflow in mind.</p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
+          {bentoFeatures.map((feature, i) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group relative flex flex-col gap-4 rounded-3xl border border-border bg-card p-8 transition-all hover:shadow-xl hover:shadow-primary/5"
+              whileHover={{ y: -5 }}
+              className={cn(
+                "group relative overflow-hidden rounded-[2.5rem] border border-border bg-card p-10 transition-all hover:shadow-2xl hover:shadow-primary/5",
+                feature.className
+              )}
             >
-              <div className={cn("inline-flex w-fit rounded-2xl p-4 transition-transform group-hover:scale-110", feature.bg, feature.color)}>
-                <feature.icon size={28} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className={cn("inline-flex w-fit rounded-2xl p-5 mb-8 transition-transform group-hover:scale-110 group-hover:rotate-6", feature.bg, feature.color)}>
+                  <feature.icon size={32} strokeWidth={2.5} />
+                </div>
+                <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="text-xl font-bold">{feature.title}</h3>
-              <p className="text-muted-foreground line-relaxed">
-                {feature.description}
-              </p>
+              <div className="absolute -right-8 -bottom-8 opacity-[0.03] grayscale transition-all group-hover:scale-125 group-hover:opacity-[0.07] group-hover:grayscale-0">
+                <feature.icon size={200} />
+              </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Why Section */}
-      <section className="container mx-auto px-4 py-12 sm:px-8">
-        <div className="rounded-3xl border border-border bg-muted/20 p-12 text-center">
-            <h2 className="text-3xl font-bold mb-4">A Professional Toolkit Built for You</h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground">
-                Finding the right person to reach out to is hard enough. Verification shouldn't be. 
-                We built Codeforage to be a clean, distraction-free environment for outreach professionals.
-            </p>
-        </div>
+      {/* Final Call to Action */}
+      <section className="container mx-auto px-4 sm:px-8 pb-12">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="premium-gradient relative rounded-[3rem] p-1 shadow-2xl overflow-hidden"
+        >
+            <div className="rounded-[calc(3rem-4px)] bg-slate-950/40 backdrop-blur-3xl p-16 md:p-24 text-center">
+                <h2 className="text-4xl font-black text-white sm:text-6xl mb-6">Elevate your outreach today.</h2>
+                <p className="text-white/70 max-w-2xl mx-auto mb-10 text-xl font-medium">
+                    Join the professionals who use Codeforage to find more contacts and land more replies. No catch, just quality tools.
+                </p>
+                <div className="flex justify-center gap-6">
+                    <Link href="/permutator">
+                        <button className="bg-white text-slate-950 px-10 py-5 rounded-2xl font-bold text-lg transition-transform hover:scale-105 active:scale-95">
+                            Get Started for Free
+                        </button>
+                    </Link>
+                </div>
+            </div>
+            {/* Ambient glows for the CTA */}
+            <div className="absolute -top-24 -left-24 h-64 w-64 bg-primary rounded-full blur-[100px] opacity-20" />
+            <div className="absolute -bottom-24 -right-24 h-64 w-64 bg-accent rounded-full blur-[100px] opacity-20" />
+        </motion.div>
       </section>
     </div>
+  );
+}
+
+function SparklesIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.5 0.75L9 5.25L13.5 6L9.75 9L11.25 13.5L7.5 11.25L3.75 13.5L5.25 9L1.5 6L6 5.25L7.5 0.75Z" fill="currentColor"/>
+    </svg>
   );
 }
