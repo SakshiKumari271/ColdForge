@@ -39,7 +39,7 @@ export default function PermutatorPage() {
         }))
       };
 
-      const res = await fetch("http://localhost:5000/permutator/permutator", {
+      const res = await fetch("http://localhost:5000/api/permutator", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -202,7 +202,7 @@ export default function PermutatorPage() {
                           <span className={cn(
                             "flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase",
                             v.status === "Valid" ? "bg-green-500/10 text-green-600" :
-                            v.status === "Invalid" ? "bg-red-500/10 text-red-600" : "bg-yellow-500/10 text-yellow-600"
+                              v.status === "Invalid" ? "bg-red-500/10 text-red-600" : "bg-yellow-500/10 text-yellow-600"
                           )}>
                             {v.status === "Valid" ? <CheckCircle2 size={10} /> : <XCircle size={10} />}
                             {v.status}

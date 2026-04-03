@@ -72,7 +72,7 @@ export default function EmailDrafterPage() {
     formData.append("model", model);
 
     try {
-      const res = await fetch("http://localhost:5000/draft/draft-email", {
+      const res = await fetch("http://localhost:5000/api/draft-email", {
         method: "POST",
         body: formData,
       });

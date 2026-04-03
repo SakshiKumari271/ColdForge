@@ -60,7 +60,6 @@ export default function LandingPage() {
   const [heroEmail, setHeroEmail] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [quickResult, setQuickResult] = useState<any>(null);
-  const [verificationResult, setVerificationResult] = useState<any>(null);
 
   const containerRef = useRef(null);
 
@@ -91,27 +90,6 @@ export default function LandingPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleVerify = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setIsVerifying(true);
-    setVerificationResult(null);
-
-    try {
-      const res = await fetch("http://localhost:5000/verify/verify-single", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      setVerificationResult(data);
-    } catch (err) {
-      console.error(err);
-      setVerificationResult({ status: "Error", message: "Backend offline" });
-    } finally {
-      setIsVerifying(false);
-    }
-  };
 
   if (!mounted) return <div className="min-h-screen bg-background" />;
 
