@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
-import { Code, Mail, FileText, Book, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Code, Mail, FileText, Book, Menu, X, Rocket, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -22,81 +22,129 @@ const navItems = [
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <motion.div
-            initial={{ rotate: -10, scale: 0.9 }}
-            animate={{ rotate: 0, scale: 1 }}
-            className="rounded-xl bg-primary p-2 text-primary-foreground"
-          >
-            <Code size={24} />
-          </motion.div>
-          <span className="text-xl font-bold tracking-tight text-foreground">
-            Codeforage
-          </span>
-        </Link>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex md:items-center md:gap-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "relative flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all hover:bg-muted/50",
-                pathname === item.href ? "text-primary" : "text-muted-foreground"
-              )}
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 transition-all duration-300">
+      <nav
+        className={cn(
+          "w-full max-w-7xl rounded-2xl border transition-all duration-500",
+          scrolled 
+            ? "border-border/50 bg-background/70 shadow-lg backdrop-blur-xl py-2" 
+            : "border-transparent bg-transparent py-4"
+        )}
+      >
+        <div className="container mx-auto flex items-center justify-between px-6">
+          {/* Logo */}
+          <Link href="/" className="group flex items-center gap-3">
+            <motion.div
+              whileHover={{ rotate: -10, scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20"
             >
-              <item.icon size={18} />
-              {item.name}
-              {pathname === item.href && (
-                <motion.div
-                  layoutId="nav-underline"
-                  className="absolute bottom-0 left-0 h-0.5 w-full bg-primary"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-            </Link>
-          ))}
-        </div>
+              <Code size={22} strokeWidth={2.5} />
+            </motion.div>
+            <span className="text-xl font-extrabold tracking-tight text-foreground transition-colors group-hover:text-primary">
+              Codeforage
+            </span>
+          </Link>
 
-        {/* Mobile Nav Toggle */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X /> : <Menu />}
-        </button>
-      </div>
-
-      {/* Mobile Nav Menu */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="container mx-auto px-4 pb-4 md:hidden"
-        >
-          <div className="flex flex-col gap-1 rounded-2xl bg-card p-4 shadow-xl ring-1 ring-border">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex md:items-center md:gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all hover:bg-muted",
-                  pathname === item.href ? "bg-primary/10 text-primary" : "text-muted-foreground"
+                  "relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all hover:bg-muted/80",
+                  pathname === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 )}
-                onClick={() => setIsOpen(false)}
               >
-                <item.icon size={20} />
+                <item.icon size={16} strokeWidth={2} />
                 {item.name}
+                {pathname === item.href && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    className="absolute inset-0 z-[-1] rounded-xl bg-primary/5 ring-1 ring-primary/10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
               </Link>
             ))}
           </div>
-        </motion.div>
-      )}
-    </nav>
+
+          {/* CTA & Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <Link href="/permutator" className="hidden sm:block">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90"
+              >
+                <span>Launch App</span>
+                <Rocket size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </motion.button>
+            </Link>
+
+            <button
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/50 bg-background/50 text-foreground transition-colors hover:bg-muted md:hidden"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Nav Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, y: -20 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden md:hidden"
+            >
+              <div className="mx-4 mt-4 space-y-2 rounded-2xl border border-border/50 bg-background/80 p-3 shadow-2xl backdrop-blur-xl">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center justify-between rounded-xl px-4 py-4 text-sm font-bold transition-all active:scale-95",
+                      pathname === item.href ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
+                    )}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <div className="flex items-center gap-4">
+                      <item.icon size={20} strokeWidth={2.5} />
+                      {item.name}
+                    </div>
+                    <ChevronRight size={16} opacity={0.5} />
+                  </Link>
+                ))}
+                <Link
+                  href="/permutator"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Rocket size={18} />
+                  Get Started
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </header>
   );
 }
+

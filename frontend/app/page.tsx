@@ -21,46 +21,50 @@ const bentoFeatures = [
     description: "Deep SMTP handshake verification with 99.9% accuracy. No more bounces.",
     icon: ShieldCheck,
     className: "lg:col-span-2 lg:row-span-1",
-    color: "text-blue-500",
-    bg: "bg-blue-500/5",
+    color: "text-blue-600",
+    bg: "bg-blue-500/10",
+    accent: "border-l-4 border-blue-500/30",
   },
   {
     title: "AI Drafter",
     description: "Cold emails that actually get replies.",
     icon: Zap,
     className: "lg:col-span-1 lg:row-span-1",
-    color: "text-purple-500",
-    bg: "bg-purple-500/5",
+    color: "text-violet-600",
+    bg: "bg-violet-500/10",
+    accent: "border-l-4 border-violet-500/30",
   },
   {
     title: "Permutator",
     description: "Find the needle in the haystack with smart domain permutation logic.",
     icon: Search,
     className: "lg:col-span-1 lg:row-span-2",
-    color: "text-indigo-500",
-    bg: "bg-indigo-500/5",
+    color: "text-indigo-600",
+    bg: "bg-indigo-500/10",
+    accent: "border-t-4 border-indigo-500/30",
   },
   {
     title: "Global Reach",
     description: "Access contacts from any domain, anywhere in the world.",
     icon: Globe,
     className: "lg:col-span-2 lg:row-span-1",
-    color: "text-emerald-500",
-    bg: "bg-emerald-500/5",
+    color: "text-emerald-600",
+    bg: "bg-emerald-500/10",
+    accent: "border-r-4 border-emerald-500/30",
   },
 ];
 
 export default function LandingPage() {
+  const [mounted, setMounted] = useState(false);
   const [email, setEmail] = useState("");
   const [index, setIndex] = useState(0);
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationResult, setVerificationResult] = useState<any>(null);
   
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: containerRef });
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-
+  
   useEffect(() => {
+    setMounted(true);
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
     }, 2500);
@@ -89,6 +93,8 @@ export default function LandingPage() {
     }
   };
 
+  if (!mounted) return <div className="min-h-screen bg-background" />;
+
   return (
     <div ref={containerRef} className="relative flex flex-col gap-32 pb-32">
       <GridBackground />
@@ -101,15 +107,15 @@ export default function LandingPage() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-8"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-8 backdrop-blur-sm"
           >
             <SparklesIcon />
             <span>The Premium Outreach Suite</span>
           </motion.div>
 
-          <h1 className="text-6xl font-black tracking-tight text-foreground sm:text-8xl mb-8 leading-[1.1]">
+          <h1 className="text-6xl font-black tracking-tight text-slate-900 sm:text-8xl mb-8 leading-[1.1]">
             Outreach for <br />
-            <span className="relative inline-block min-w-[280px] text-left sm:min-w-[420px]">
+            <span className="relative inline-flex items-center justify-center min-w-[280px] sm:min-w-[420px] h-[1.2em]">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={words[index]}
@@ -117,7 +123,7 @@ export default function LandingPage() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ duration: 0.4, ease: "circOut" }}
-                  className="premium-text-gradient absolute inset-0"
+                  className="premium-text-gradient absolute"
                 >
                   {words[index]}
                 </motion.span>
@@ -129,7 +135,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto max-w-2xl text-xl text-muted-foreground mb-12 leading-relaxed font-medium"
+            className="mx-auto max-w-2xl text-xl text-slate-600 mb-12 leading-relaxed font-medium"
           >
             A calm, professional suite of tools to help you find, verify, and reach out to anyone. 
             No complex signups, no hidden fees.
@@ -148,7 +154,7 @@ export default function LandingPage() {
               </button>
             </Link>
             <Link href="/docs">
-              <button className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card/50 backdrop-blur-md px-10 py-5 font-bold text-foreground transition-all hover:bg-muted active:scale-95">
+              <button className="inline-flex items-center gap-2 rounded-2xl border border-border bg-white/80 backdrop-blur-md px-10 py-5 font-bold text-slate-900 transition-all hover:bg-slate-50 active:scale-95 shadow-sm">
                 Documentation
               </button>
             </Link>
@@ -164,20 +170,20 @@ export default function LandingPage() {
           viewport={{ once: true }}
           className="mx-auto max-w-4xl"
         >
-          <div className="relative rounded-[2.5rem] border border-border bg-card/30 p-2 shadow-3xl backdrop-blur-xl ring-1 ring-white/10">
-            <div className="rounded-[2.2rem] bg-background/50 p-8 md:p-14">
+          <div className="relative rounded-[2.5rem] bg-indigo-950 p-2 shadow-[0_0_50px_-12px_rgba(79,70,229,0.3)] ring-1 ring-white/10 overflow-hidden">
+            <div className="relative z-10 rounded-[2.2rem] bg-slate-900/40 backdrop-blur-3xl p-8 md:p-14">
               <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold mb-3">One-Click Verification</h2>
-                <p className="text-muted-foreground">High-precision SMTP validation in seconds.</p>
+                <h2 className="text-3xl font-bold mb-3 text-white">One-Click Verification</h2>
+                <p className="text-indigo-200/60">High-precision SMTP validation in seconds.</p>
               </div>
 
               <form onSubmit={handleVerify} className="flex flex-col gap-4 sm:flex-row">
                 <div className="relative flex-1 group">
-                  <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary" size={22} />
+                  <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-indigo-400 transition-colors group-focus-within:text-white" size={22} />
                   <input
                     type="email"
                     placeholder="name@company.com"
-                    className="w-full rounded-2xl border border-border bg-muted/20 py-5 pl-14 pr-6 text-lg outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary/50 transition-all font-medium"
+                    className="w-full rounded-2xl border border-indigo-900 bg-indigo-950/50 py-5 pl-14 pr-6 text-lg text-white outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder:text-indigo-700"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -186,7 +192,7 @@ export default function LandingPage() {
                 <button
                   type="submit"
                   disabled={isVerifying}
-                  className="rounded-2xl bg-foreground px-10 py-5 font-bold text-background transition-all hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-2xl bg-white px-10 py-5 font-bold text-indigo-950 transition-all hover:bg-indigo-50 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isVerifying ? "Processing..." : "Verify Identity"}
                 </button>
@@ -198,7 +204,7 @@ export default function LandingPage() {
                     initial={{ opacity: 0, scale: 0.9, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                    className="mt-10 rounded-2xl border border-border bg-muted/10 p-8"
+                    className="mt-10 rounded-2xl border border-indigo-800/30 bg-indigo-900/10 p-8"
                   >
                     <div className="flex items-center gap-6 text-left">
                       <div className={cn(
@@ -209,8 +215,8 @@ export default function LandingPage() {
                         <ShieldCheck size={32} />
                       </div>
                       <div>
-                        <h3 className="font-extrabold text-2xl mb-1">{verificationResult.status}</h3>
-                        <p className="text-muted-foreground font-medium">
+                        <h3 className="font-extrabold text-2xl mb-1 text-white">{verificationResult.status}</h3>
+                        <p className="text-indigo-200/80 font-medium">
                           {verificationResult.details || `Identity check complete for ${email}.`}
                         </p>
                       </div>
@@ -219,6 +225,8 @@ export default function LandingPage() {
                 )}
               </AnimatePresence>
             </div>
+            {/* Ambient glows inside card */}
+            <div className="absolute -top-24 -left-24 h-64 w-64 bg-primary rounded-full blur-[100px] opacity-10" />
           </div>
         </motion.div>
       </section>
@@ -227,7 +235,7 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 sm:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Powerful by Design</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">Every tool is optimized for conversion and built with the recruiter's workflow in mind.</p>
+          <p className="text-slate-600 max-w-xl mx-auto">Every tool is optimized for conversion and built with the recruiter's workflow in mind.</p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
           {bentoFeatures.map((feature, i) => (
@@ -237,22 +245,24 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -5, borderColor: feature.color.replace('text-', '') }}
               className={cn(
-                "group relative overflow-hidden rounded-[2.5rem] border border-border bg-card p-10 transition-all hover:shadow-2xl hover:shadow-primary/5",
-                feature.className
+                "group relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white p-10 transition-all hover:shadow-2xl premium-shadow",
+                feature.className,
+                feature.accent
               )}
             >
+              <div className="absolute inset-0 dots-pattern opacity-[0.05]" />
               <div className="relative z-10 flex flex-col h-full">
                 <div className={cn("inline-flex w-fit rounded-2xl p-5 mb-8 transition-transform group-hover:scale-110 group-hover:rotate-6", feature.bg, feature.color)}>
                   <feature.icon size={32} strokeWidth={2.5} />
                 </div>
-                <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <h3 className="text-2xl font-bold mb-3 text-slate-900">{feature.title}</h3>
+                <p className="text-slate-600 text-lg leading-relaxed">
                   {feature.description}
                 </p>
               </div>
-              <div className="absolute -right-8 -bottom-8 opacity-[0.03] grayscale transition-all group-hover:scale-125 group-hover:opacity-[0.07] group-hover:grayscale-0">
+              <div className="absolute -right-8 -bottom-8 opacity-[0.05] transition-all group-hover:scale-110 group-hover:opacity-[0.1] group-hover:rotate-12">
                 <feature.icon size={200} />
               </div>
             </motion.div>
@@ -268,18 +278,26 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="premium-gradient relative rounded-[3rem] p-1 shadow-2xl overflow-hidden"
         >
-            <div className="rounded-[calc(3rem-4px)] bg-slate-950/40 backdrop-blur-3xl p-16 md:p-24 text-center">
+            <div className="rounded-[calc(3rem-4px)] bg-indigo-950/40 backdrop-blur-3xl p-16 md:p-24 text-center relative overflow-hidden">
                 <h2 className="text-4xl font-black text-white sm:text-6xl mb-6">Elevate your outreach today.</h2>
-                <p className="text-white/70 max-w-2xl mx-auto mb-10 text-xl font-medium">
+                <p className="text-white/80 max-w-2xl mx-auto mb-10 text-xl font-medium">
                     Join the professionals who use Codeforage to find more contacts and land more replies. No catch, just quality tools.
                 </p>
                 <div className="flex justify-center gap-6">
                     <Link href="/permutator">
-                        <button className="bg-white text-slate-950 px-10 py-5 rounded-2xl font-bold text-lg transition-transform hover:scale-105 active:scale-95">
+                        <button className="bg-white text-indigo-950 px-10 py-5 rounded-2xl font-bold text-lg transition-transform hover:scale-105 active:scale-95 shadow-xl">
                             Get Started for Free
                         </button>
                     </Link>
                 </div>
+                {/* Decorative floating icon */}
+                <motion.div 
+                    animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                    className="absolute top-10 right-10 text-white/10"
+                >
+                    <ShieldCheck size={120} />
+                </motion.div>
             </div>
             {/* Ambient glows for the CTA */}
             <div className="absolute -top-24 -left-24 h-64 w-64 bg-primary rounded-full blur-[100px] opacity-20" />
