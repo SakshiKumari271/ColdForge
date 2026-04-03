@@ -101,8 +101,8 @@ export default function LandingPage() {
       <FloatingIcons />
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-16">
-        <div className="container mx-auto px-4 text-center sm:px-8">
+      <section className="relative pt-40 pb-16 overflow-hidden">
+        <div className="container mx-auto px-4 text-center sm:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}

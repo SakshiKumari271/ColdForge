@@ -38,7 +38,7 @@ export function Navbar() {
         className={cn(
           "w-full max-w-7xl rounded-2xl border transition-all duration-500",
           scrolled 
-            ? "border-border/50 bg-background/70 shadow-lg backdrop-blur-xl py-2" 
+            ? "border-indigo-500/20 bg-indigo-950/80 shadow-2xl backdrop-blur-xl py-2" 
             : "border-transparent bg-transparent py-4"
         )}
       >
@@ -52,7 +52,10 @@ export function Navbar() {
             >
               <Code size={22} strokeWidth={2.5} />
             </motion.div>
-            <span className="text-xl font-extrabold tracking-tight text-foreground transition-colors group-hover:text-primary">
+            <span className={cn(
+              "text-xl font-extrabold tracking-tight transition-colors group-hover:text-primary",
+              scrolled ? "text-white" : "text-slate-900"
+            )}>
               Codeforage
             </span>
           </Link>
@@ -64,8 +67,10 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all hover:bg-muted/80",
-                  pathname === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  "relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all hover:bg-black/5",
+                  scrolled 
+                    ? (pathname === item.href ? "text-white" : "text-indigo-200/60 hover:text-white")
+                    : (pathname === item.href ? "text-primary" : "text-slate-600 hover:text-slate-900")
                 )}
               >
                 <item.icon size={16} strokeWidth={2} />
@@ -73,7 +78,10 @@ export function Navbar() {
                 {pathname === item.href && (
                   <motion.div
                     layoutId="nav-pill"
-                    className="absolute inset-0 z-[-1] rounded-xl bg-primary/5 ring-1 ring-primary/10"
+                    className={cn(
+                      "absolute inset-0 z-[-1] rounded-xl ring-1",
+                      scrolled ? "bg-white/10 ring-white/20" : "bg-primary/10 ring-primary/20"
+                    )}
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
@@ -95,7 +103,12 @@ export function Navbar() {
             </Link>
 
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/50 bg-background/50 text-foreground transition-colors hover:bg-muted md:hidden"
+              className={cn(
+                "flex h-10 w-10 items-center justify-center rounded-xl border transition-colors md:hidden",
+                scrolled 
+                  ? "border-white/10 bg-white/5 text-white hover:bg-white/10" 
+                  : "border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
+              )}
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}

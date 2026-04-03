@@ -8,10 +8,10 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-border/40 bg-background py-16 overflow-hidden">
+    <footer className="relative border-t border-white/5 bg-slate-950 py-16 overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
       
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
@@ -21,11 +21,11 @@ export function Footer() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
                 <Code size={22} strokeWidth={2.5} />
               </div>
-              <span className="text-2xl font-extrabold tracking-tight text-foreground">
+              <span className="text-2xl font-extrabold tracking-tight text-white">
                 Codeforage
               </span>
             </Link>
-            <p className="text-muted-foreground leading-relaxed max-w-sm">
+            <p className="text-slate-400 leading-relaxed max-w-sm">
               Empowering developers and recruiters with high-performance outreach tools. 
               Built for speed, privacy, and results.
             </p>
@@ -68,7 +68,7 @@ export function Footer() {
                   key={i}
                   href={social.href}
                   whileHover={{ y: -4, scale: 1.1 }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/50 bg-muted/30 text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-400 transition-colors hover:border-primary/50 hover:text-primary"
                   title={social.name}
                 >
                   {social.icon}
@@ -80,24 +80,24 @@ export function Footer() {
           {/* Links Grid */}
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div className="flex flex-col gap-6">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-foreground">Product</h4>
-              <ul className="flex flex-col gap-4 text-sm font-medium text-muted-foreground">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-white">Product</h4>
+              <ul className="flex flex-col gap-4 text-sm font-medium text-slate-400">
                 <li><Link href="/permutator" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Permutator <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
                 <li><Link href="/drafter" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Email Drafter <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
                 <li><Link href="/templates" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Templates <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
               </ul>
             </div>
             <div className="flex flex-col gap-6">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-foreground">Resources</h4>
-              <ul className="flex flex-col gap-4 text-sm font-medium text-muted-foreground">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-white">Resources</h4>
+              <ul className="flex flex-col gap-4 text-sm font-medium text-slate-400">
                 <li><Link href="/docs" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Documentation <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
                 <li><Link href="/api" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">API Reference <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
                 <li><Link href="/blog" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Engineering Blog <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
               </ul>
             </div>
             <div className="flex flex-col gap-6">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-foreground">Company</h4>
-              <ul className="flex flex-col gap-4 text-sm font-medium text-muted-foreground">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-white">Company</h4>
+              <ul className="flex flex-col gap-4 text-sm font-medium text-slate-400">
                 <li><Link href="/about" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">About Us <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
                 <li><Link href="/privacy" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Privacy Policy <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
                 <li><Link href="/terms" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Terms of Service <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
@@ -107,15 +107,15 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-muted-foreground">
+        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-slate-500">
           <p>© {currentYear} Codeforage Inc. All rights reserved.</p>
           <div className="flex items-center gap-8">
-            <Link href="/status" className="hover:text-foreground transition-colors flex items-center gap-2">
+            <Link href="/status" className="hover:text-white transition-colors flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               All Systems Operational
             </Link>
-            <div className="h-4 w-px bg-border/40 hidden sm:block" />
-            <p className="font-medium text-foreground/60 italic underline decoration-primary/30 decoration-2 underline-offset-4">
+            <div className="h-4 w-px bg-white/10 hidden sm:block" />
+            <p className="font-medium text-slate-400 italic underline decoration-primary/50 decoration-2 underline-offset-4">
               Zero Tracking. Zero Cookies.
             </p>
           </div>
