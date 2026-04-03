@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Code, ArrowRight } from "lucide-react";
+import { Mail, Code, ArrowRight, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function Footer() {
@@ -83,6 +83,7 @@ export function Footer() {
               <h4 className="text-sm font-bold uppercase tracking-widest text-white">Product</h4>
               <ul className="flex flex-col gap-4 text-sm font-medium text-slate-400">
                 <li><Link href="/permutator" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Permutator <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
+                <li><Link href="/verify" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Email Verifier <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
                 <li><Link href="/drafter" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Email Drafter <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
                 <li><Link href="/templates" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Templates <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/></Link></li>
               </ul>

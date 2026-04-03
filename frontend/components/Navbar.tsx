@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Code, Mail, FileText, Book, Menu, X, Rocket, ChevronRight } from "lucide-react";
+import { Code, Mail, FileText, Book, Menu, X, Rocket, ChevronRight, ShieldCheck } from "lucide-react";
 import { useState, useEffect } from "react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -15,7 +15,8 @@ function cn(...inputs: ClassValue[]) {
 const navItems = [
   { name: "Home", href: "/", icon: Code },
   { name: "Permutator", href: "/permutator", icon: Mail },
-  { name: "Email Drafter", href: "/drafter", icon: FileText },
+  { name: "Verifier", href: "/verify", icon: ShieldCheck },
+  { name: "AI Drafter", href: "/drafter", icon: FileText },
   { name: "Docs", href: "/docs", icon: Book },
 ];
 
