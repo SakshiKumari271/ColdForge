@@ -139,22 +139,22 @@ export default function PermutatorPage() {
                 <button
                   onClick={() => setActiveTab("manual")}
                   className={cn(
-                    "flex-1 flex items-center justify-center gap-2 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all",
+                    "flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest rounded-xl transition-all",
                     activeTab === "manual" ? "bg-card text-primary shadow-sm ring-1 ring-border/50" : "text-muted-foreground/60 hover:text-muted-foreground hover:bg-muted/50"
                   )}
                 >
-                  <User size={16} />
-                  Individual
+                  <User size={16} className="flex-shrink-0" />
+                  <span className="truncate">Individual</span>
                 </button>
                 <button
                   onClick={() => setActiveTab("bulk")}
                   className={cn(
-                    "flex-1 flex items-center justify-center gap-2 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all",
+                    "flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest rounded-xl transition-all",
                     activeTab === "bulk" ? "bg-card text-primary shadow-sm ring-1 ring-border/50" : "text-muted-foreground/60 hover:text-muted-foreground hover:bg-muted/50"
                   )}
                 >
-                  <Upload size={16} />
-                  Bulk Import
+                  <Upload size={16} className="flex-shrink-0" />
+                  <span className="truncate">Bulk Import</span>
                 </button>
               </div>
 
@@ -188,7 +188,7 @@ export default function PermutatorPage() {
                           initial={{ opacity: 0, scale: 0.98 }}
                           animate={{ opacity: 1, scale: 1 }}
                           key={emp.id}
-                          className="flex gap-2"
+                          className="flex flex-col sm:flex-row gap-2"
                         >
                           <div className="relative flex-1">
                             <User className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/40" size={16} />
@@ -274,7 +274,7 @@ export default function PermutatorPage() {
                     </div>
                   </div>
 
-                  <div className="mt-8 grid grid-cols-3 gap-3">
+                  <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {["firstname", "lastname", "domain"].map((col) => (
                       <div key={col} className="flex flex-col items-center p-3 rounded-2xl bg-muted/40 border border-border/50 text-center">
                         <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 mb-1">{col}</span>
@@ -310,7 +310,7 @@ export default function PermutatorPage() {
                 </div>
               </div>
 
-              <div className="mt-4 p-6 rounded-[32px] bg-primary/5 border border-primary/10">
+              <div className="mt-4 p-5 sm:p-6 rounded-[32px] bg-primary/5 border border-primary/10">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary flex">
                     <Info size={16} />
@@ -355,13 +355,13 @@ export default function PermutatorPage() {
             className="pt-16 pb-32"
           >
             <div className="flex flex-col gap-12">
-              <div className="flex items-center justify-between border-b border-border/50 pb-8">
-                <div>
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between border-b border-border/50 pb-8 gap-6">
+                <div className="text-center lg:text-left">
                   <h2 className="text-2xl font-black tracking-tight uppercase">Results Dashboard</h2>
                   <p className="text-xs text-muted-foreground font-mono mt-1 opacity-60">Verified permutations for {domain}</p>
                 </div>
-                <div className="flex items-center gap-6">
-                  <div className="flex items-center gap-4 border-r border-border/50 pr-6 mr-2">
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                  <div className="flex items-center gap-4 border-b sm:border-b-0 sm:border-r border-border/50 pb-4 sm:pb-0 sm:pr-6 sm:mr-2">
                     {(["all", "valid", "unknown"] as const).map((t) => (
                       <button
                         key={t}
@@ -377,7 +377,7 @@ export default function PermutatorPage() {
                   </div>
                   <button
                     onClick={copyAllValid}
-                    className="flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-primary transition-all hover:bg-primary/10"
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-primary transition-all hover:bg-primary/10"
                   >
                     {copiedEmail === "all-valid" ? <Check size={16} /> : <Copy size={16} />}
                     {copiedEmail === "all-valid" ? "Copied" : "Copy Valid"}
