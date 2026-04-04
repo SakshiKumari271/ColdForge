@@ -41,6 +41,7 @@ export default function PermutatorPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [presentHeaders, setPresentHeaders] = useState({ first: false, last: false, domain: false });
   const hasResults = results.length > 0;
   const resultsGridRef = useRef<HTMLDivElement>(null);
 
@@ -131,12 +132,18 @@ export default function PermutatorPage() {
       domain: ['Company Name', 'companyname', 'company', 'domain', 'website', 'url', 'company_name']
     };
 
-    const missing: string[] = [];
-    if (!required.first.some(alias => headers.includes(alias))) missing.push("First Name");
-    if (!required.last.some(alias => headers.includes(alias))) missing.push("Last Name");
-    if (!required.domain.some(alias => headers.includes(alias))) missing.push("Company/Domain");
+    const found = {
+      first: required.first.some(alias => headers.includes(alias.toLowerCase().replace(/[^a-z0-9]/g, ''))),
+      last: required.last.some(alias => headers.includes(alias.toLowerCase().replace(/[^a-z0-9]/g, ''))),
+      domain: required.domain.some(alias => headers.includes(alias.toLowerCase().replace(/[^a-z0-9]/g, '')))
+    };
 
-    return missing;
+    const missing: string[] = [];
+    if (!found.first) missing.push("First Name");
+    if (!found.last) missing.push("Last Name");
+    if (!found.domain) missing.push("Company/Domain");
+
+    return { missing, found };
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,8 +159,9 @@ export default function PermutatorPage() {
     const reader = new FileReader();
     reader.onload = (event) => {
       const content = event.target?.result as string;
-      const missing = validateCSVHeaders(content);
+      const { missing, found } = validateCSVHeaders(content);
 
+      setPresentHeaders(found);
       if (missing.length > 0) {
         setValidationError(`Missing columns: ${missing.join(', ')}`);
         setSelectedFile(null);
@@ -444,15 +452,30 @@ export default function PermutatorPage() {
                     </button>
                   </div>
 
-                  <div className="mt-6 flex flex-col gap-4">
-                    <div className="flex flex-wrap justify-center gap-2 opacity-60">
-                      {["firstname", "lastname", "domain"].map((col) => (
-                        <div key={col} className="flex-1 min-w-[70px] flex flex-col items-center p-2 rounded-xl bg-muted/40 border border-border/50 text-center">
-                          <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/50 mb-1">{col}</span>
-                          <CheckCircle2 size={12} className="text-green-500" />
+                  <div className="mt-4 flex flex-wrap justify-center gap-2">
+                    {([
+                      { key: "first", label: "firstname" },
+                      { key: "last", label: "lastname" },
+                      { key: "domain", label: "domain" }
+                    ] as const).map((col) => {
+                      const isPresent = presentHeaders[col.key];
+                      return (
+                        <div
+                          key={col.key}
+                          className={cn(
+                            "flex-1 min-w-[70px] flex flex-col items-center p-2 rounded-xl border transition-all text-center",
+                            isPresent
+                              ? "bg-green-500/5 border-green-500/20 text-green-500 opacity-100"
+                              : selectedFile || validationError
+                                ? "bg-red-500/5 border-red-500/20 text-red-400 opacity-100"
+                                : "bg-muted/40 border-border/50 text-muted-foreground/30 opacity-40"
+                          )}
+                        >
+                          <span className="text-[8px] font-black uppercase tracking-widest mb-1">{col.label}</span>
+                          {isPresent ? <CheckCircle2 size={12} /> : <XCircle size={12} />}
                         </div>
-                      ))}
-                    </div>
+                      );
+                    })}
                   </div>
                 </motion.div>
               )}
