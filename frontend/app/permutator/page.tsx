@@ -1,21 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  Plus, 
-  Trash2, 
-  Globe, 
-  Send, 
-  User, 
-  CheckCircle2, 
-  XCircle, 
-  HelpCircle, 
-  Loader2, 
-  Mail, 
-  Copy, 
-  Check, 
-  Filter, 
-  ChevronDown, 
+import {
+  Plus,
+  Trash2,
+  Globe,
+  Send,
+  User,
+  CheckCircle2,
+  XCircle,
+  HelpCircle,
+  Loader2,
+  Mail,
+  Copy,
+  Check,
+  Filter,
+  ChevronDown,
   ArrowDownCircle,
   Upload,
   FileSpreadsheet,
@@ -59,7 +59,7 @@ export default function PermutatorPage() {
   }, []);
 
   const copyAllValid = useCallback(() => {
-    const allValid = results.flatMap(r => 
+    const allValid = results.flatMap(r =>
       r.verifications.filter(v => v.status === "Valid").map(v => v.email)
     ).join(", ");
     if (allValid) {
@@ -79,7 +79,7 @@ export default function PermutatorPage() {
     })
   })).filter(res => res.verifications.length > 0);
 
-  const validCount = results.reduce((acc, res) => 
+  const validCount = results.reduce((acc, res) =>
     acc + res.verifications.filter(v => v.status === "Valid").length, 0
   );
 
@@ -124,11 +124,11 @@ export default function PermutatorPage() {
   const validateCSVHeaders = (content: string) => {
     const firstLine = content.split('\n')[0];
     const headers = firstLine.split(',').map(h => h.trim().toLowerCase().replace(/[^a-z0-9]/g, ''));
-    
+
     const required = {
-      first: ['firstname', 'first', 'fname', 'first_name'],
-      last: ['lastname', 'last', 'lname', 'last_name'],
-      domain: ['companyname', 'company', 'domain', 'website', 'url', 'company_name']
+      first: ['First Name', 'firstname', 'first', 'fname', 'first_name'],
+      last: ['Last Name', 'lastname', 'last', 'lname', 'last_name'],
+      domain: ['Company Name', 'companyname', 'company', 'domain', 'website', 'url', 'company_name']
     };
 
     const missing: string[] = [];
@@ -153,7 +153,7 @@ export default function PermutatorPage() {
     reader.onload = (event) => {
       const content = event.target?.result as string;
       const missing = validateCSVHeaders(content);
-      
+
       if (missing.length > 0) {
         setValidationError(`Missing columns: ${missing.join(', ')}`);
         setSelectedFile(null);
@@ -198,7 +198,7 @@ export default function PermutatorPage() {
 
     try {
       const headers = ["First Name", "Last Name", "Domain", "Email", "Status", "Reason"];
-      const rows = results.flatMap(res => 
+      const rows = results.flatMap(res =>
         res.verifications.map(v => [
           res.first_name,
           res.last_name,
@@ -241,10 +241,10 @@ export default function PermutatorPage() {
     <div className="container mx-auto px-4 pt-32 pb-32 sm:px-8 max-w-6xl">
       <div className="flex flex-col gap-12">
         <div className="text-center md:text-left">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-4">
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl mb-4">
             Email <span className="premium-text-gradient">Permutator</span>
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-base sm:text-lg text-muted-foreground">
             Generate and verify potentially active email addresses for any professional person at a company.
           </p>
         </div>
@@ -252,27 +252,27 @@ export default function PermutatorPage() {
         <div className="grid gap-8 lg:grid-cols-5">
           {/* Form Area */}
           <div className="lg:col-span-3">
-            <div className="flex flex-col gap-6 rounded-[32px] border border-border bg-card shadow-2xl p-6 lg:p-8 overflow-hidden min-h-[500px]">
+            <div className="flex flex-col gap-6 rounded-2xl sm:rounded-[32px] border border-border bg-card shadow-2xl p-4 sm:p-6 lg:p-8 overflow-hidden min-h-[400px] sm:min-h-[500px]">
               {/* Tab Switcher */}
-              <div className="flex gap-1 p-1 bg-muted/40 rounded-2xl mb-2">
+              <div className="flex gap-1 p-1 bg-muted/40 rounded-2xl mb-2 overflow-hidden">
                 <button
                   onClick={() => setActiveTab("manual")}
                   className={cn(
-                    "flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest rounded-xl transition-all",
+                    "flex-1 flex items-center justify-center gap-1 px-1 py-3 text-[9px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest rounded-xl transition-all min-w-0",
                     activeTab === "manual" ? "bg-card text-primary shadow-sm ring-1 ring-border/50" : "text-muted-foreground/60 hover:text-muted-foreground hover:bg-muted/50"
                   )}
                 >
-                  <User size={16} className="flex-shrink-0" />
+                  <User size={14} className="flex-shrink-0" />
                   <span className="truncate">Individual</span>
                 </button>
                 <button
                   onClick={() => setActiveTab("bulk")}
                   className={cn(
-                    "flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest rounded-xl transition-all",
+                    "flex-1 flex items-center justify-center gap-1 px-1 py-3 text-[9px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest rounded-xl transition-all min-w-0",
                     activeTab === "bulk" ? "bg-card text-primary shadow-sm ring-1 ring-border/50" : "text-muted-foreground/60 hover:text-muted-foreground hover:bg-muted/50"
                   )}
                 >
-                  <Upload size={16} className="flex-shrink-0" />
+                  <Upload size={14} className="flex-shrink-0" />
                   <span className="truncate">Bulk Import</span>
                 </button>
               </div>
@@ -359,7 +359,7 @@ export default function PermutatorPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="mt-4 flex w-full items-center justify-center gap-3 rounded-2xl bg-primary py-4 font-black uppercase tracking-[0.2em] text-[11px] text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="mt-4 flex w-full items-center justify-center gap-3 rounded-2xl bg-primary py-4 font-black uppercase tracking-wider sm:tracking-[0.2em] text-[10px] sm:text-[11px] text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <Loader2 className="animate-spin" size={18} />
@@ -372,21 +372,21 @@ export default function PermutatorPage() {
                   </button>
                 </form>
               ) : (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="flex flex-col flex-1"
                 >
-                  <label 
+                  <label
                     className={cn(
-                      "flex-1 flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-[32px] transition-all group cursor-pointer relative",
+                      "flex-1 flex flex-col items-center justify-center text-center p-4 sm:p-8 border-2 border-dashed rounded-[32px] transition-all group cursor-pointer relative",
                       validationError ? "border-red-400 bg-red-50/10" : "border-border/60 hover:border-primary/40 hover:bg-muted/30"
                     )}
                   >
-                    <input 
-                      type="file" 
-                      className="absolute inset-0 opacity-0 cursor-pointer" 
-                      accept=".csv" 
+                    <input
+                      type="file"
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                      accept=".csv"
                       onChange={handleFileChange}
                     />
                     <div className={cn(
@@ -396,7 +396,7 @@ export default function PermutatorPage() {
                       <FileSpreadsheet size={32} />
                     </div>
                     <div className="mb-6">
-                      <h3 className="text-lg font-bold mb-1">
+                      <h3 className="text-base sm:text-lg font-bold mb-1 break-all">
                         {selectedFile ? selectedFile.name : "Click or Drag CSV here"}
                       </h3>
                       {validationError ? (
@@ -405,33 +405,33 @@ export default function PermutatorPage() {
                         <p className="text-xs text-muted-foreground">Standard CSV files are supported</p>
                       )}
                     </div>
-                    
+
                     <div className={cn(
                       "flex items-center gap-2 p-3 px-5 rounded-full text-[10px] font-black uppercase tracking-widest",
-                      selectedFile 
-                        ? "bg-green-500/10 text-green-500" 
+                      selectedFile
+                        ? "bg-green-500/10 text-green-500"
                         : "bg-primary/10 text-primary"
                     )}>
-                       <Upload size={14} />
-                       {selectedFile ? "File Ready" : "Select CSV File"}
+                      <Upload size={14} />
+                      {selectedFile ? "File Ready" : "Select CSV File"}
                     </div>
                   </label>
 
                   <div className="mt-6 flex flex-col gap-4">
                     <div className="flex items-center justify-between px-2">
-                       <button 
+                      <button
                         onClick={downloadSampleCSV}
                         className="text-[10px] font-black uppercase tracking-widest text-primary/60 hover:text-primary transition-all flex items-center gap-2"
-                       >
-                         <ArrowDownCircle size={14} />
-                         Download Sample
-                       </button>
+                      >
+                        <ArrowDownCircle size={14} />
+                        Download Sample
+                      </button>
                     </div>
 
                     <button
                       onClick={handleBulkUpload}
                       disabled={loading || !selectedFile || !!validationError}
-                      className="flex w-full items-center justify-center gap-3 rounded-2xl bg-primary py-4 font-black uppercase tracking-[0.2em] text-[11px] text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex w-full items-center justify-center gap-3 rounded-2xl bg-primary py-4 font-black uppercase tracking-wider sm:tracking-[0.2em] text-[10px] sm:text-[11px] text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {loading ? (
                         <Loader2 className="animate-spin" size={18} />
@@ -443,14 +443,16 @@ export default function PermutatorPage() {
                       )}
                     </button>
                   </div>
-                  
-                  <div className="mt-8 grid grid-cols-3 gap-2 opacity-60">
-                    {["firstname", "lastname", "domain"].map((col) => (
-                      <div key={col} className="flex flex-col items-center p-2 rounded-xl bg-muted/40 border border-border/50 text-center">
-                        <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/50 mb-1">{col}</span>
-                        <CheckCircle2 size={12} className="text-green-500" />
-                      </div>
-                    ))}
+
+                  <div className="mt-6 flex flex-col gap-4">
+                    <div className="flex flex-wrap justify-center gap-2 opacity-60">
+                      {["firstname", "lastname", "domain"].map((col) => (
+                        <div key={col} className="flex-1 min-w-[70px] flex flex-col items-center p-2 rounded-xl bg-muted/40 border border-border/50 text-center">
+                          <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/50 mb-1">{col}</span>
+                          <CheckCircle2 size={12} className="text-green-500" />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -458,11 +460,11 @@ export default function PermutatorPage() {
           </div>
 
           <div className="lg:col-span-2">
-            <div className="flex h-full flex-col gap-6 rounded-[32px] border border-border bg-card/50 backdrop-blur-sm p-6 lg:p-8 shadow-xl">
+            <div className="flex h-full flex-col gap-6 rounded-[32px] border border-border bg-card/50 backdrop-blur-sm p-4 sm:p-6 lg:p-8 shadow-xl">
               <div className="mb-2">
                 <h3 className="text-xl font-bold tracking-tight mb-2">Search Summary</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                   Real-time insights for your current permutation session.
+                  Real-time insights for your current permutation session.
                 </p>
               </div>
 
@@ -490,7 +492,7 @@ export default function PermutatorPage() {
               </div>
 
               {loading && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="flex flex-col items-center justify-center text-center py-6"
@@ -499,9 +501,9 @@ export default function PermutatorPage() {
                   <p className="text-xs font-bold uppercase tracking-widest animate-pulse">Running Scan...</p>
                 </motion.div>
               )}
-              
+
               {!loading && results.length > 0 && (
-                <button 
+                <button
                   onClick={() => resultsGridRef.current?.scrollIntoView({ behavior: 'smooth' })}
                   className="mt-auto flex items-center justify-center gap-2 rounded-2xl bg-card border border-border/50 py-4 text-xs font-black uppercase tracking-widest text-foreground hover:bg-muted transition-all active:scale-95 shadow-sm"
                 >
@@ -515,7 +517,7 @@ export default function PermutatorPage() {
 
         {/* Results Dashboard Table (Bottom Section) */}
         {results.length > 0 && (
-          <motion.div 
+          <motion.div
             ref={resultsGridRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
