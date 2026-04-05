@@ -49,6 +49,7 @@ export default function EmailDrafterPage() {
   const [loading, setLoading] = useState(false);
   const [draft, setDraft] = useState<string | { subject: string, body: string } | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -354,13 +355,29 @@ export default function EmailDrafterPage() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => {
-                      const textToCopy = typeof draft === 'object' ? `Subject: ${draft.subject}\n\n${draft.body}` : draft;
-                      navigator.clipboard.writeText(textToCopy);
+                      if (!draft) return;
+                      const textToCopy = typeof draft === 'object' && draft !== null 
+                        ? `Subject: ${draft.subject}\n\n${draft.body}` 
+                        : String(draft);
+                      
+                      navigator.clipboard.writeText(textToCopy).then(() => {
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2000);
+                      });
                     }}
-                    className="flex items-center gap-1.5 text-xs font-bold uppercase text-muted-foreground hover:text-primary transition-colors"
+                    className="flex items-center gap-1.5 text-xs font-bold uppercase transition-colors"
                   >
-                    <Copy size={14} />
-                    Copy
+                    {copied ? (
+                      <>
+                        <CheckCircle2 size={14} className="text-green-500" />
+                        <span className="text-green-500">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={14} className="text-muted-foreground" />
+                        <span className="text-muted-foreground hover:text-primary">Copy</span>
+                      </>
+                    )}
                   </button>
                   <div className="relative" ref={dropdownRef}>
                     <button
