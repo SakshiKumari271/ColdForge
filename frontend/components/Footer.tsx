@@ -22,7 +22,7 @@ export function Footer() {
                 <Code size={22} strokeWidth={2.5} />
               </div>
               <span className="text-2xl font-extrabold tracking-tight text-white">
-                Codeforage
+                ColdForge
               </span>
             </Link>
             <p className="text-slate-400 leading-relaxed max-w-sm">
@@ -60,7 +60,7 @@ export function Footer() {
                 },
                 {
                   name: "Email",
-                  href: "mailto:hello@codeforage.com",
+                  href: "mailto:hello@coldforge.com",
                   icon: <Mail className="w-5 h-5" />
                 },
               ].map((social, i) => (
@@ -93,7 +93,7 @@ export function Footer() {
               <ul className="flex flex-col gap-4 text-sm font-medium text-slate-400">
                 <li><Link href="/docs" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Documentation <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /></Link></li>
                 <li>
-                  <Link href="https://github.com/SakshiKumari271/Codeforage/blob/main/backend/README.md" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                  <Link href="https://github.com/SakshiKumari271/ColdForge/blob/main/backend/README.md" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">
                     API Reference <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                   </Link>
                 </li>
@@ -113,7 +113,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-slate-500">
-          <p>© {currentYear} Codeforage Inc. All rights reserved.</p>
+          <p>© {currentYear} ColdForge Inc. All rights reserved.</p>
           <div className="flex items-center gap-8">
             <Link href="/status" className="hover:text-white transition-colors flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />

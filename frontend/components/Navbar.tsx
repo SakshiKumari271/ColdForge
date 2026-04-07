@@ -57,7 +57,7 @@ export function Navbar() {
               "text-lg sm:text-xl font-extrabold tracking-tight transition-colors group-hover:text-primary",
               scrolled ? "text-white" : "text-slate-900"
             )}>
-              Codeforage
+              ColdForge
             </span>
           </Link>
 

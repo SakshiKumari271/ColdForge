@@ -10,7 +10,7 @@ def create_app():
 
     @app.route('/')
     def home():
-        return "CodeForage API is running!"
+        return "ColdForge API is running!"
 
     # Register Blueprints
     from app.routes.verify_routes import verify_bp

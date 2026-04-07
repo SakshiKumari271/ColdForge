@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Codeforage | Premium Outreach Suite",
+  title: "ColdForge | Premium Outreach Suite",
   description: "Verify emails, find contacts, and draft AI-personalized outreach emails. 100% Free, no API account required.",
 };
 

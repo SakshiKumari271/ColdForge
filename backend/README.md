@@ -1,4 +1,4 @@
-# CodeForage Backend Documentation
+# ColdForge Backend Documentation
 
 This document provides an overview of the backend API endpoints, request/response formats, and usage instructions.
 
@@ -15,7 +15,7 @@ Checks if the API is running correctly.
 - **URL:** `/`
 - **Method:** `GET`
 - **Response:**
-  - `200 OK`: "CodeForage API is running!"
+  - `200 OK`: "ColdForge API is running!"
 
 ---
 
@@ -169,4 +169,4 @@ Last verified on: 2026-04-05
 | `/api/draft-email` | `POST` | AI Email Drafting (PDF Upload) | ✅ SUCCESS (200 OK) |
 
 ---
-***By CodeForage Team***
+***By ColdForge Team***

@@ -1,10 +1,10 @@
-# CodeForage - Future Roadmap & Ideas
+# ColdForge - Future Roadmap & Ideas
 
-This document tracks features, improvements, and experimental ideas to be implemented in the CodeForage outreach suite.
+This document tracks features, improvements, and experimental ideas to be implemented in the ColdForge outreach suite.
 
 ## ⚡ Immediate Focus (Next Steps)
 - [ ] **Docs Page:** Build a comprehensive documentation page for users to understand how to use the suite.
-- [ ] **About Page:** Create a page detailing the mission, tech stack, and team behind CodeForage.
+- [ ] **About Page:** Create a page detailing the mission, tech stack, and team behind ColdForge.
 
 ## 🚀 Premium Features (High Priority)
 - [x] **CSV Permutator Upload:** Support bulk email generation via CSV file uploads.
@@ -24,9 +24,10 @@ This document tracks features, improvements, and experimental ideas to be implem
 - [ ] **Unit Testing:** Implement Jest/React Testing Library for frontend components.
 
 ## 💡 Blue Sky Ideas
-- [ ] **Chrome Extension:** A "CodeForage" helper that pops up on LinkedIn or Gmail.
+- [ ] **Chrome Extension:** A "ColdForge" helper that pops up on LinkedIn or Gmail.
 - [ ] **Outreach Analytics:** Track open rates and reply rates for emails generated via the platform.
 - [ ] **Team Collaboration:** Shared workspaces for sales and outreach teams.
 
 ---
 *Created on: 2026-04-03*
+***By ColdForge***

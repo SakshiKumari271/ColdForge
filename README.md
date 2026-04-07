@@ -1,11 +1,11 @@
-# CodeForage | Premium Outreach Suite
+# ColdForge | Premium Outreach Suite
 
-CodeForage is a high-performance, tech-forward outreach platform designed for professionals. It combines lead research, email permutation, SMTP verification, and AI-powered drafting into a single, cohesive "Obsidian Protocol" aesthetic.
+ColdForge is a high-performance, tech-forward outreach platform designed for professionals. It combines lead research, email permutation, SMTP verification, and AI-powered drafting into a single, cohesive "Obsidian Protocol" aesthetic.
 
 ## 📁 Repository Structure
 
 ```text
-Codeforage/
+ColdForge/
 ├── frontend/          # Next.js 16 + Tailwind 4 (UI/UX)
 ├── backend/           # Flask + Python (API / Logic Services)
 ├── Task.md            # Future roadmap and implemented ideas
@@ -91,4 +91,4 @@ npm run dev
 
 ---
 *Built with precision for the modern outreach expert.*\
-***By Codeforage Team***
+***By ColdForge Team***

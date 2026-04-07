@@ -1,4 +1,4 @@
-# CodeForage Frontend Documentation
+# ColdForge Frontend Documentation
 
 This document provides an overview of the frontend application, including its structure, key pages, components, and development guide.
 
@@ -32,7 +32,7 @@ AI-powered cold email generation based on uploaded resume PDF and context.
 - **Integration:** Calls `/api/draft-email` on the backend.
 
 ### Product Documentation
-Comprehensive guides and documentation for using the Codeforage suite.
+Comprehensive guides and documentation for using the ColdForge suite.
 - **Path:** `/docs`
 
 ---
@@ -92,4 +92,4 @@ Last verified on: 2026-04-05
 
 ---
 
-***By CodeForage Team***
+***By ColdForge Team***
