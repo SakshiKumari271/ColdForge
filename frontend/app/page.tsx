@@ -68,7 +68,7 @@ export default function LandingPage() {
     if (!heroEmail) return;
     setIsVerifying(true);
     try {
-      const res = await fetch("http://localhost:5000/api/verify-single", {
+      const res = await fetch("/api/verify-single", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: heroEmail }),

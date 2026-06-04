@@ -82,8 +82,22 @@ python run.py
 ```bash
 cd frontend
 npm install
+
+# Setup local environment variables (optional, defaults to port 5000)
+# Create a .env.local file:
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:5000
+
 npm run dev
 ```
+
+### 4. Vercel Deployment
+The repository is pre-configured for a unified Next.js + Python Flask deployment on Vercel using the root [vercel.json](vercel.json) file.
+- **Backend API**: Handled by Vercel Serverless Functions via `@vercel/python` routing requests under `/api/*` to `backend/run.py`.
+- **Frontend App**: Handled by Vercel Next.js builder via `@vercel/next` routing other traffic to the `frontend/` directory.
+
+To deploy:
+1. Install the Vercel CLI: `npm i -g vercel`
+2. Run `vercel` in the repository root and follow the prompts.
 
 ## 📜 Documentation
 - [Frontend Documentation](frontend/README.md)

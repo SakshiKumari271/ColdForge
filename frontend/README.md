@@ -16,7 +16,7 @@ The main entry point of the application, showcasing the "Premium Light" aestheti
 - **Features:** Glassmorphic Hero section, Feature grid, Interactive background.
 
 ### SMTP Verification
-Technical audit tool for single email SMPT verification.
+Technical audit tool for single email SMTP verification.
 - **Path:** `/verify`
 - **Integration:** Calls `/api/verify-single` on the backend.
 

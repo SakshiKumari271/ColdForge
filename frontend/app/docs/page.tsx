@@ -8,7 +8,7 @@ const sections = [
     id: "getting-started",
     title: "Getting Started",
     icon: Book,
-    content: "Codeforage is designed to be a simple, professional toolkit for outbound outreach. There are no paid plans, no account requirements, and no tracking. Every tool is built for maximum privacy and performance.",
+    content: "ColdForge is designed to be a simple, professional toolkit for outbound outreach. There are no paid plans, no account requirements, and no tracking. Every tool is built for maximum privacy and performance.",
     tips: [
       "Use the Navbar to navigate between tools.",
       "Verification tools don't require an API key.",
@@ -47,7 +47,7 @@ export default function DocsPage() {
             Documentation
           </h1>
           <p className="text-lg text-muted-foreground mx-auto max-w-2xl">
-            Everything you need to know about the Codeforage professional toolkit.
+            Everything you need to know about the ColdForge professional toolkit.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export default function DocsPage() {
           <AlertCircle size={48} className="mx-auto mb-6 opacity-80" />
           <h2 className="text-3xl font-bold mb-4">No Paid Plans</h2>
           <p className="text-white/80 max-w-xl mx-auto mb-8 font-medium">
-            Codeforage is a passion project built to democratize professional outreach tools.
+            ColdForge is a passion project built to democratize professional outreach tools.
             We will never charge for features and we do not provide a public API for programmatic use.
           </p>
           <div className="flex justify-center flex-wrap gap-4">
