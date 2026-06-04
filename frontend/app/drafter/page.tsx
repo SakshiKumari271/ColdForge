@@ -77,7 +77,7 @@ export default function EmailDrafterPage() {
     }
 
     const lines = d.split('\n');
-    let subject = "Outreach from Codeforage";
+    let subject = "Outreach from ColdForge";
     let body = d;
 
     const subjectLine = lines.find(line => line.toLowerCase().startsWith('subject:'));
