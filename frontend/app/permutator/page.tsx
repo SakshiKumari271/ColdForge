@@ -107,7 +107,7 @@ export default function PermutatorPage() {
         }))
       };
 
-      const res = await fetch("http://localhost:5000/api/permutator", {
+      const res = await fetch("/api/permutator", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -182,7 +182,7 @@ export default function PermutatorPage() {
     formData.append('file', selectedFile);
 
     try {
-      const res = await fetch("http://localhost:5000/api/upload_csv", {
+      const res = await fetch("/api/upload_csv", {
         method: "POST",
         body: formData,
       });

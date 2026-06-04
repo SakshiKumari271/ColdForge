@@ -36,7 +36,7 @@ function VerifyContent() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:5000/api/verify-single", {
+      const res = await fetch("/api/verify-single", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: targetEmail }),
